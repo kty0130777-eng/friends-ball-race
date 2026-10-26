@@ -6,6 +6,14 @@
 
 ---
 
+## 🌐 바로 플레이하기 (Live Demo Links)
+
+- **GitHub Pages 배포 링크**: [https://kty0130777-eng.github.io/friends-ball-race/](https://kty0130777-eng.github.io/friends-ball-race/)
+- **Vercel 실시간 배포 링크**: [https://express-neon-gr53j3e.tmp.now](https://express-neon-gr53j3e.tmp.now)
+- **GitHub 저장소**: [https://github.com/kty0130777-eng/friends-ball-race](https://github.com/kty0130777-eng/friends-ball-race)
+
+---
+
 ## ✨ 주요 특징 (Key Features)
 
 1. **완벽한 원형 3D 캐릭터 공**
