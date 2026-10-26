@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>친구들 공 레이스! 누가 당번일까?</title>
+  <meta name="description" content="친구들의 이름을 입력하고 귀여운 캐릭터 공들의 신나는 장애물 레이스를 통해 오늘의 당번을 공정하고 재미있게 정해보세요!">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800;900&family=Jua&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- 헤더 영역 -->
+    <header class="app-header">
+      <div class="header-badge">🎲 흥미진진 복불복 레이스</div>
+      <h1 class="header-title">친구들 공 레이스! <span>누가 당번일까?</span></h1>
+      <p class="header-desc">
+        결승선에 <strong>가장 먼저 1등으로 도착한 친구</strong>가 오늘의 당번으로 선정됩니다! 👑
+      </p>
+    </header>
+
+    <!-- 메인 레이아웃 -->
+    <main class="game-main">
+      <!-- 왼쪽: 참여자 관리 패널 -->
+      <aside class="sidebar-panel">
+        <section class="card participant-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="card-icon">👥</span>
+              <h2>참여자 등록</h2>
+            </div>
+            <span class="participant-count-badge" id="participantCountBadge">0명 참여 중</span>
+          </div>
+
+          <div class="rule-notice-box">
+            <span class="notice-icon">📢</span>
+            <p><strong>당번 규칙:</strong> 1등으로 가장 먼저 결승선을 통과한 친구가 당번입니다!</p>
+          </div>
+
+          <!-- 이름 입력 폼 -->
+          <form id="participantForm" class="input-form" onsubmit="return false;">
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                id="nameInput" 
+                placeholder="친구 이름 입력 (예: 철수)" 
+                maxlength="10"
+                autocomplete="off"
+              >
+              <button type="submit" id="addBtn" class="btn btn-primary">
+                <span>➕</span> 추가
+              </button>
+            </div>
+            <p id="inputErrorMsg" class="input-error-msg" aria-live="polite"></p>
+          </form>
+
+          <!-- 빠른 추가 및 제어 버튼 -->
+          <div class="quick-action-group">
+            <button type="button" id="quickSampleBtn" class="btn btn-subtle" title="기본 친구 5명을 빠르게 추가합니다">
+              ⚡ 샘플 5명 추가
+            </button>
+            <button type="button" id="shuffleBtn" class="btn btn-subtle" title="출발 순서를 무작위로 섞습니다">
+              🔀 순서 섞기
+            </button>
+            <button type="button" id="clearAllBtn" class="btn btn-danger-soft" title="모든 참여자를 삭제합니다">
+              🗑️ 전체 비우기
+            </button>
+          </div>
+
+          <!-- 참여자 리스트 -->
+          <div class="participant-list-container">
+            <div class="list-heading">
+              <span>등록된 친구 목록 (최소 2명 필요)</span>
+            </div>
+            <ul id="participantList" class="participant-list">
+              <!-- JS로 동적 생성 -->
+            </ul>
+            <div id="emptyListNotice" class="empty-list-notice">
+              <span class="empty-icon">🎈</span>
+              <p>아직 등록된 친구가 없어요.<br>이름을 입력하거나 <strong>샘플 5명 추가</strong>를 눌러보세요!</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 실시간 순위 패널 (레이스 중 표시) -->
+        <section class="card live-rank-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="card-icon">🏁</span>
+              <h2>실시간 레이스 순위</h2>
+            </div>
+            <span id="raceStatusBadge" class="status-badge waiting">대기 중</span>
+          </div>
+          <div class="rank-list-scroll">
+            <ol id="liveRankList" class="live-rank-list">
+              <!-- JS 동적 갱신 -->
+            </ol>
+          </div>
+        </section>
+      </aside>
+
+      <!-- 오른쪽: 레이스 경기장 및 게임 제어 영역 -->
+      <section class="stadium-panel">
+        <div class="card stadium-card">
+          <!-- 상단 툴바 / 제어 버튼 -->
+          <div class="stadium-toolbar">
+            <div class="track-info">
+              <span class="track-badge">🏟️ 장애물 볼링 롤러 트랙</span>
+              <span class="track-subtitle">핀과 회전 범퍼를 뚫고 결승선으로!</span>
+            </div>
+            <div class="game-controls">
+              <!-- 음향 토글 -->
+              <button id="soundToggleBtn" class="btn btn-icon" title="효과음 켜기/끄기" aria-label="효과음 토글">
+                <span id="soundIcon">🔊</span>
+              </button>
+              <!-- 일시정지 버튼 -->
+              <button id="pauseBtn" class="btn btn-secondary" disabled>
+                <span id="pauseIcon">⏸️</span> 일시정지
+              </button>
+              <!-- 다시 하기 (동일 멤버로 재시작) -->
+              <button id="restartBtn" class="btn btn-secondary" disabled>
+                <span>🔄</span> 다시 하기
+              </button>
+              <!-- 메인 시작 버튼 -->
+              <button id="startBtn" class="btn btn-success btn-large">
+                <span class="btn-sparkle">🚀</span> 게임 시작!
+              </button>
+            </div>
+          </div>
+
+          <!-- 캔버스 컨테이너 -->
+          <div class="canvas-wrapper" id="canvasWrapper">
+            <canvas id="raceCanvas" width="600" height="880"></canvas>
+            
+            <!-- 카운트다운 오버레이 -->
+            <div id="countdownOverlay" class="countdown-overlay hidden">
+              <div id="countdownText" class="countdown-text">3</div>
+            </div>
+
+            <!-- 안내 오버레이 (시작 전) -->
+            <div id="guideOverlay" class="guide-overlay">
+              <div class="guide-box">
+                <div class="guide-character-preview" id="guidePreview"></div>
+                <h3>준비가 끝나면 게임 시작을 눌러주세요!</h3>
+                <p>2명 이상의 친구를 등록한 후 <strong>게임 시작!</strong> 버튼을 클릭하세요.</p>
+                <p class="guide-highlight">🏆 가장 먼저 결승선을 통과한 <strong>1등</strong>이 당번입니다!</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 트랙 하단 상태 및 팁 -->
+          <div class="stadium-footer">
+            <div class="footer-tip">
+              <span>💡 TIP:</span> 공들이 서로 부딪히고 회전 바람개비와 핀 범퍼에 튕기며 역전 드라마가 펼쳐집니다!
+            </div>
+            <div class="track-speed-control">
+              <span class="speed-label">속도:</span>
+              <button type="button" class="speed-btn active" data-speed="1">1.0x</button>
+              <button type="button" class="speed-btn" data-speed="1.5">1.5x</button>
+              <button type="button" class="speed-btn" data-speed="2">2.0x</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 우승 및 당번 발표 모달 -->
+    <div id="winnerModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal-dialog">
+        <div class="modal-confetti-canvas-container">
+          <canvas id="confettiCanvas"></canvas>
+        </div>
+        <div class="modal-content">
+          <div class="winner-crown-badge">👑 축하합니다! 👑</div>
+          <h2 class="modal-title">오늘의 당번 결정!</h2>
+          
+          <div class="winner-hero-card">
+            <div class="winner-ball-preview" id="winnerBallPreview"></div>
+            <div class="winner-announcement">
+              <span class="winner-sub">1등으로 결승선 도착!</span>
+              <div class="winner-name-display" id="winnerNameDisplay">홍길동</div>
+              <p class="duty-badge">🎉 오늘의 당번 당첨! 🎉</p>
+            </div>
+          </div>
+
+          <!-- 전체 최종 순위표 -->
+          <div class="final-rankings-box">
+            <h3>🏁 최종 순위표</h3>
+            <div class="ranking-table-scroll">
+              <table class="ranking-table">
+                <thead>
+                  <tr>
+                    <th>순위</th>
+                    <th>캐릭터</th>
+                    <th>이름</th>
+                    <th>완주 기록</th>
+                    <th>비고</th>
+                  </tr>
+                </thead>
+                <tbody id="finalRankingBody">
+                  <!-- JS로 채워짐 -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 모달 하단 버튼 -->
+          <div class="modal-actions">
+            <button type="button" id="modalRestartBtn" class="btn btn-primary btn-large">
+              <span>🔄</span> 같은 친구들과 다시 레이스!
+            </button>
+            <button type="button" id="modalCloseBtn" class="btn btn-subtle">
+              결과 닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

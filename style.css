@@ -1,0 +1,1096 @@
+/* ========================================================
+   친구들 공 레이스! 누가 당번일까? - 메인 스타일시트
+   CSS3, 반응형, 글래스모피즘 & 캐주얼 게임 테마
+   ======================================================== */
+
+:root {
+  --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Jua', 'Pretendard', sans-serif;
+
+  /* 컬러 팔레트 */
+  --bg-gradient: linear-gradient(135deg, #f5f7ff 0%, #faeff9 50%, #eff6ff 100%);
+  --surface-white: #ffffff;
+  --surface-card: rgba(255, 255, 255, 0.95);
+  --surface-hover: #f8fafc;
+  --surface-border: #e2e8f0;
+  --surface-border-subtle: rgba(226, 232, 240, 0.8);
+  
+  --primary-color: #6366f1;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  
+  --secondary-color: #ec4899;
+  --secondary-gradient: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
+  
+  --accent-gold: #f59e0b;
+  --accent-gold-gradient: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+
+  --success-color: #10b981;
+  --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+
+  --danger-color: #ef4444;
+  --danger-soft-bg: #fee2e2;
+  --danger-soft-text: #b91c1c;
+
+  --text-main: #1e293b;
+  --text-sub: #64748b;
+  --text-muted: #94a3b8;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 8px 24px rgba(99, 102, 241, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 16px 36px rgba(99, 102, 241, 0.14), 0 4px 10px rgba(15, 23, 42, 0.05);
+  --shadow-popup: 0 24px 50px rgba(15, 23, 42, 0.25);
+}
+
+/* 리셋 & 기본 설정 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding: 16px 20px 40px;
+}
+
+/* 전체 컨테이너 */
+.app-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 헤더 */
+.app-header {
+  text-align: center;
+  padding: 10px 0 6px;
+}
+
+.header-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  background: white;
+  color: var(--primary-dark);
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--surface-border-subtle);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.header-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  font-weight: 900;
+  color: #1e1b4b;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 10px rgba(99, 102, 241, 0.12);
+}
+
+.header-title span {
+  background: linear-gradient(135deg, #f43f5e, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-desc {
+  font-size: 1.05rem;
+  color: var(--text-sub);
+  word-break: keep-all;
+}
+
+.header-desc strong {
+  color: var(--secondary-color);
+  background: rgba(236, 72, 153, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* 메인 레이아웃 (사이드바 + 경기장) */
+.game-main {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* 카드 공통 스타일 */
+.card {
+  background: var(--surface-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-md);
+  padding: 22px;
+  position: relative;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-icon {
+  font-size: 1.35rem;
+}
+
+.card-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: #1e293b;
+  letter-spacing: -0.3px;
+}
+
+/* 사이드바 영역 */
+.sidebar-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 규칙 안내 박스 */
+.rule-notice-box {
+  background: #fdf2f8;
+  border: 1px solid #fbcfe8;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #9d174d;
+  margin-bottom: 16px;
+}
+
+.rule-notice-box strong {
+  color: #be185d;
+}
+
+/* 참여자 수 배지 */
+.participant-count-badge {
+  background: #eef2ff;
+  color: var(--primary-dark);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid #c7d2fe;
+}
+
+/* 폼 & 입력창 */
+.input-form {
+  margin-bottom: 12px;
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.input-wrapper input {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 1rem;
+  font-family: var(--font-main);
+  border: 2px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  color: var(--text-main);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-wrapper input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.input-wrapper input:disabled {
+  background: #f1f5f9;
+  cursor: not-allowed;
+}
+
+.input-error-msg {
+  min-height: 20px;
+  font-size: 0.84rem;
+  color: var(--danger-color);
+  margin-top: 6px;
+  font-weight: 600;
+  padding-left: 4px;
+}
+
+/* 퀵 액션 버튼 그룹 */
+.quick-action-group {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+/* 버튼 기본 스타일 */
+.btn {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: var(--text-main);
+  border: 1.5px solid var(--surface-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.btn-subtle {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+}
+
+.btn-subtle:hover:not(:disabled) {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.btn-danger-soft {
+  background: var(--danger-soft-bg);
+  color: var(--danger-soft-text);
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+}
+
+.btn-danger-soft:hover:not(:disabled) {
+  background: #fecaca;
+}
+
+.btn-success {
+  background: var(--success-gradient);
+  color: white;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.btn-success:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-large {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.5px;
+  border-radius: var(--radius-md);
+}
+
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  background: white;
+  border: 1.5px solid var(--surface-border);
+  font-size: 1.25rem;
+}
+
+.btn-icon:hover {
+  background: #f8fafc;
+}
+
+/* 참여자 목록 */
+.participant-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-heading {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  margin-bottom: 8px;
+}
+
+.participant-list {
+  list-style: none;
+  max-height: 250px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+/* 커스텀 스크롤바 */
+.participant-list::-webkit-scrollbar,
+.rank-list-scroll::-webkit-scrollbar,
+.ranking-table-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.participant-list::-webkit-scrollbar-thumb,
+.rank-list-scroll::-webkit-scrollbar-thumb,
+.ranking-table-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 99px;
+}
+
+.participant-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-border-subtle);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.15s ease;
+}
+
+.participant-item:hover {
+  transform: translateX(2px);
+  border-color: #cbd5e1;
+}
+
+.participant-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ball-avatar {
+  width: 32px;
+  height: 32px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  box-shadow: inset 0 -3px 6px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.12);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.participant-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.participant-delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 6px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.participant-delete-btn:hover:not(:disabled) {
+  color: var(--danger-color);
+  background: var(--danger-soft-bg);
+}
+
+.participant-delete-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.empty-list-notice {
+  text-align: center;
+  padding: 24px 16px;
+  color: var(--text-sub);
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  border: 1.5px dashed var(--surface-border);
+}
+
+.empty-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.empty-list-notice p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* 실시간 순위 카드 */
+.live-rank-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.status-badge {
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.status-badge.waiting {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.status-badge.racing {
+  background: #dcfce7;
+  color: #166534;
+  animation: pulse-badge 1.2s infinite alternate;
+}
+
+.status-badge.paused {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.finished {
+  background: #fce7f3;
+  color: #9d174d;
+}
+
+@keyframes pulse-badge {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+
+.rank-list-scroll {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.live-rank-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.live-rank-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  border: 1px solid var(--surface-border-subtle);
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.live-rank-item.leader {
+  background: #fefce8;
+  border-color: #fde047;
+  font-weight: 800;
+}
+
+.live-rank-item.finished {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.rank-item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rank-item-num {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  width: 26px;
+  color: var(--text-sub);
+}
+
+.rank-item-left .ball-avatar {
+  width: 24px;
+  height: 24px;
+  font-size: 0.75rem;
+}
+
+.rank-item-status {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.rank-item-status.finished-tag {
+  color: #059669;
+  background: #d1fae5;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 경기장 (스타디움) 패널 */
+.stadium-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.stadium-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 22px;
+}
+
+.stadium-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.track-badge {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: #1e1b4b;
+}
+
+.track-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-sub);
+}
+
+.game-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 캔버스 래퍼 */
+.canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+  border: 4px solid #ffffff;
+  background: #1e1e2f;
+  aspect-ratio: 600 / 880;
+  touch-action: none;
+}
+
+#raceCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+/* 카운트다운 오버레이 */
+.countdown-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+}
+
+.countdown-overlay.hidden {
+  display: none;
+}
+
+.countdown-text {
+  font-family: var(--font-display);
+  font-size: 7.5rem;
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(244, 63, 94, 0.8), 0 0 40px rgba(99, 102, 241, 0.8);
+  animation: countdown-bounce 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+  user-select: none;
+}
+
+@keyframes countdown-bounce {
+  0% { transform: scale(0.4); opacity: 0; }
+  40% { transform: scale(1.15); opacity: 1; }
+  70% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.05); opacity: 0.9; }
+}
+
+/* 준비 가이드 오버레이 */
+.guide-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 5;
+  transition: opacity 0.25s ease;
+}
+
+.guide-overlay.hidden {
+  display: none;
+}
+
+.guide-box {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  text-align: center;
+  max-width: 380px;
+  box-shadow: var(--shadow-popup);
+  border: 3px solid #e0e7ff;
+  animation: pop-in 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.guide-character-preview {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.guide-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: #1e1b4b;
+  margin-bottom: 8px;
+}
+
+.guide-box p {
+  font-size: 0.95rem;
+  color: var(--text-sub);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.guide-highlight {
+  font-size: 1rem !important;
+  font-weight: 700;
+  color: #e11d48 !important;
+  background: #ffe4e6;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  margin-top: 12px !important;
+  margin-bottom: 0 !important;
+}
+
+/* 경기장 푸터 및 속도 조절 */
+.stadium-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+}
+
+.footer-tip {
+  font-size: 0.85rem;
+  color: var(--text-sub);
+  background: #f8fafc;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-border-subtle);
+  flex: 1;
+}
+
+.footer-tip span {
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.track-speed-control {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: var(--radius-md);
+}
+
+.speed-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  padding: 0 4px;
+}
+
+.speed-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.speed-btn.active {
+  background: #ffffff;
+  color: var(--primary-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================================
+   우승자 & 당번 발표 모달
+   ======================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-confetti-canvas-container {
+  position: absolute;
+  inset: -100px -60px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#confettiCanvas {
+  width: 100%;
+  height: 100%;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 30px 24px 24px;
+  box-shadow: var(--shadow-popup);
+  border: 4px solid #fdf2f8;
+  text-align: center;
+  position: relative;
+  z-index: 5;
+  overflow-y: auto;
+  animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.winner-crown-badge {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  background: linear-gradient(135deg, #fef08a, #f59e0b);
+  color: #78350f;
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  margin-bottom: 8px;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: #1e1b4b;
+  margin-bottom: 16px;
+}
+
+/* 우승자 히어로 영역 */
+.winner-hero-card {
+  background: linear-gradient(135deg, #fff1f2 0%, #fdf4ff 100%);
+  border: 2px solid #fecdd3;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 20px rgba(244, 63, 94, 0.12);
+}
+
+.winner-ball-preview {
+  width: 90px;
+  height: 90px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.25), 0 10px 24px rgba(244, 63, 94, 0.3);
+  border: 4px solid white;
+  animation: winner-bounce 1s ease-in-out infinite alternate;
+  position: relative;
+  flex-shrink: 0;
+}
+
+@keyframes winner-bounce {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-8px) scale(1.05); }
+}
+
+.winner-announcement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.winner-sub {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  letter-spacing: 0.5px;
+}
+
+.winner-name-display {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #881337;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.duty-badge {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: #be123c;
+  background: #ffffff;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  margin-top: 6px;
+  border: 1px solid #fda4af;
+}
+
+/* 최종 순위표 */
+.final-rankings-box {
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 20px;
+  border: 1px solid var(--surface-border);
+}
+
+.final-rankings-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: #334155;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.ranking-table-scroll {
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.ranking-table th {
+  padding: 8px 6px;
+  font-weight: 700;
+  color: var(--text-sub);
+  border-bottom: 2px solid var(--surface-border);
+  background: #f1f5f9;
+}
+
+.ranking-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--surface-border-subtle);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.ranking-table tr.winner-row {
+  background: #fff1f2;
+  font-weight: 800;
+}
+
+.ranking-table tr.winner-row td {
+  color: #9f1239;
+}
+
+.duty-tag-cell {
+  background: #be123c;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: inline-block;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ========================================================
+   반응형 미디어 쿼리 (태블릿, 모바일)
+   ======================================================== */
+@media (max-width: 1024px) {
+  .game-main {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .canvas-wrapper {
+    max-width: 540px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px 10px 24px;
+  }
+
+  .sidebar-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .stadium-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .game-controls {
+    justify-content: stretch;
+  }
+
+  .game-controls .btn {
+    flex: 1;
+    font-size: 0.88rem;
+    padding: 8px 10px;
+  }
+
+  .btn-large {
+    font-size: 1rem;
+    padding: 10px 16px;
+  }
+
+  .canvas-wrapper {
+    max-width: 100%;
+  }
+
+  .winner-name-display {
+    font-size: 1.8rem;
+  }
+}
